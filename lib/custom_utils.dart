@@ -20,6 +20,7 @@ export 'package:custom_utils/src/widgets/restartable_circular_progress_indicator
 export 'package:custom_utils/src/helpers/constants.dart';
 export 'package:custom_utils/src/helpers/styles.dart';
 export 'package:sizer/sizer.dart';
+export 'package:intl/intl.dart';
 
 class CustomUtils {
 }

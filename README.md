@@ -37,9 +37,7 @@ This package includes:
 
 ## Getting started
 
-This package uses
-- intl: ^0.17.0
-- sizer: ^2.0.15
+This package uses intl, sizer. But you don't need to add them in your app. These are already present in this package.
 
 You must wrap your MaterialApp with Sizer as follows
 
@@ -56,10 +54,12 @@ You must wrap your MaterialApp with Sizer as follows
           },
         );
       }
-
     }
 ```
 
 ## Additional information
 
 For more information contact [MicroProgramers](https://microprogramers.com)
+
+# Author
+## Mubashar Hussain
