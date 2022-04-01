@@ -58,7 +58,7 @@ You must wrap your MaterialApp with Sizer as follows
       }
 
     }
-
+```
 
 ## Additional information
 
