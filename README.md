@@ -38,8 +38,8 @@ This package includes:
 ## Getting started
 
 This package uses
-  intl: ^0.17.0
-  sizer: ^2.0.15
+- intl: ^0.17.0
+- sizer: ^2.0.15
 
 
 
