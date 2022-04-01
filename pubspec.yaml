@@ -1,8 +1,8 @@
 name: custom_utils
 description: Some nice utils made by MicroProgramers
 version: 0.0.1
-author: Mubashar Hussain
-homepage:
+#author: Mubashar Hussain
+homepage: https://github.com/MicroProgramer/custom_utils
 
 environment:
   sdk: ">=2.16.2 <3.0.0"
