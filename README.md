@@ -42,6 +42,7 @@ This package uses
 - sizer: ^2.0.15
 
 You must wrap your MaterialApp with Sizer as follows
+
 ```dart
     class _MyAppState extends State<MyApp> {
       @override
