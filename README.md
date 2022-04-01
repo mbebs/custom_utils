@@ -61,5 +61,5 @@ You must wrap your MaterialApp with Sizer as follows
 
 For more information contact [MicroProgramers](https://microprogramers.com)
 
-# Author
-## Mubashar Hussain
+## Author
+ [Mubashar Hussain](https://facebook.com/MicroProgramer)
