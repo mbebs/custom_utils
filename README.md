@@ -41,6 +41,22 @@ This package uses
 - intl: ^0.17.0
 - sizer: ^2.0.15
 
+You must wrap your MaterialApp with Sizer as follows
+```dart
+    class _MyAppState extends State<MyApp> {
+      @override
+      Widget build(BuildContext context) {
+        return Sizer(
+          builder: (BuildContext context, Orientation orientation,
+              DeviceType deviceType) {
+            return MaterialApp(
+                ....
+            );
+          },
+        );
+      }
+
+    }
 
 
 ## Additional information
