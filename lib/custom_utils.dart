@@ -19,6 +19,7 @@ export 'package:custom_utils/src/widgets/progress_controller.dart';
 export 'package:custom_utils/src/widgets/restartable_circular_progress_indicator.dart';
 export 'package:custom_utils/src/helpers/constants.dart';
 export 'package:custom_utils/src/helpers/styles.dart';
+export 'package:sizer/sizer.dart';
 
 class CustomUtils {
 }
