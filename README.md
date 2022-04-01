@@ -37,8 +37,10 @@ This package includes:
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+This package uses
+  intl: ^0.17.0
+  sizer: ^2.0.15
+
 
 
 ## Additional information
