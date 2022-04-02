@@ -61,5 +61,12 @@ You must wrap your MaterialApp with Sizer as follows
 
 For more information contact [MicroProgramers](https://microprogramers.com)
 
-## Author
- [Mubashar Hussain](https://facebook.com/MicroProgramer)
+## Connect with Developer
+ Mubashar Hussain
+ - [Facebook](https://facebook.com/MicroProgramer)
+ - [Twitter](https://facebook.com/MicroProgramer)
+ - [Facebook](https://facebook.com/MicroProgramer)
+
+## GitHub Stats
+
+[![MicroProgramer](https://github-readme-stats.vercel.app/api?username=MicroProgramer)](https://github.com/anuraghazra/github-readme-stats)
