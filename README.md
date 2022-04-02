@@ -64,9 +64,7 @@ For more information contact [MicroProgramers](https://microprogramers.com)
 ## Connect with Developer
  Mubashar Hussain
  - [Facebook](https://facebook.com/MicroProgramer)
- - [Twitter](https://facebook.com/MicroProgramer)
- - [Facebook](https://facebook.com/MicroProgramer)
+ - [YouTube](https://youtube.com/CSWorlds)
+ - [Twitter](https://twitter.com/MicroProgramer)
+ - [Instagram](https://instagram.com/MicroProgramer)
 
-## GitHub Stats
-
-[![MicroProgramer](https://github-readme-stats.vercel.app/api?username=MicroProgramer)](https://github.com/anuraghazra/github-readme-stats)
