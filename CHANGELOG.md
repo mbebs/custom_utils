@@ -6,3 +6,5 @@
 * Bugs Fixed & Improved
 ## 0.0.13
 * Fixed imports bugs
+## 0.0.15
+* Fixed Async Validator in TextField (CustomInputField)
