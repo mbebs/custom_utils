@@ -1,7 +1,10 @@
 import 'dart:async';
+
+import 'package:custom_utils/src/helpers/custom_input_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+
 import '../helpers/constants.dart';
 
 class CustomInputField extends StatefulWidget {
@@ -30,34 +33,35 @@ class CustomInputField extends StatefulWidget {
   String? Function(String?)? validator;
   Future<String?> Function(String?)? asyncValidator;
   Widget? suffix;
+  CustomInputController? customInputController;
 
   CustomInputField(
       {this.hint,
-        required this.isPasswordField,
-        this.onChange,
-        required this.keyboardType,
-        this.prefix,
-        this.limit,
-        this.controller,
-        this.onTap,
-        this.readOnly,
-        this.fillColor,
-        this.maxLines,
-        this.text,
-        this.showCounter,
-        this.counterColor,
-        this.showBorder,
-        this.minLines,
-        this.margin,
-        this.suffix,
-        this.validator,
-        this.isDense,
-        this.onFieldSubmitted,
-        this.asyncValidator,
-        this.label,
-        this.key,
-        this.focusNode});
-
+      required this.isPasswordField,
+      this.onChange,
+      required this.keyboardType,
+      this.prefix,
+      this.limit,
+      this.controller,
+      this.onTap,
+      this.readOnly,
+      this.fillColor,
+      this.maxLines,
+      this.text,
+      this.showCounter,
+      this.counterColor,
+      this.showBorder,
+      this.minLines,
+      this.margin,
+      this.suffix,
+      this.validator,
+      this.isDense,
+      this.onFieldSubmitted,
+      this.asyncValidator,
+      this.label,
+      this.key,
+      this.focusNode,
+      this.customInputController});
 
   final _state = _CustomInputFieldState();
 
@@ -67,7 +71,7 @@ class CustomInputField extends StatefulWidget {
   }
 
   Future<void> validate() async {
-    if (asyncValidator != null){
+    if (asyncValidator != null) {
       await _state.validate();
     }
   }
@@ -83,6 +87,9 @@ class _CustomInputFieldState extends State<CustomInputField> {
     errorMessage = null;
     if (widget.validator != null && widget.asyncValidator != null) {
       throw "validator and asyncValidator are not allowed at same time";
+    }
+    if (widget.controller != null && widget.customInputController != null) {
+      throw "You cannot use \"controller\" and \"customInputController\" both at once. Use only \"customInputController\" instead if you need both advance and normal features.";
     }
 
     super.initState();
@@ -104,25 +111,27 @@ class _CustomInputFieldState extends State<CustomInputField> {
       child: TextFormField(
         maxLength: widget.limit,
         key: widget.key,
-        onChanged: widget.asyncValidator == null ? widget.onChange : (value){
-          text = value.toString();
-          validateValue(text);
-          widget.onChange!(text);
-        },
+        onChanged: widget.asyncValidator == null
+            ? widget.onChange
+            : (value) {
+                text = value.toString();
+                validateValue(text);
+                widget.onChange!(text);
+              },
         obscureText: _isHidden,
         onTap: widget.onTap,
         validator: widget.validator ??
             (widget.asyncValidator != null
                 ? (value) {
-              text = value.toString();
-              return errorMessage;
-            }
+                    text = value.toString();
+                    return errorMessage;
+                  }
                 : null),
         maxLines: widget.maxLines ?? 1,
         minLines: widget.minLines,
         readOnly: widget.readOnly ?? false,
         keyboardType: widget.keyboardType,
-        controller: widget.controller,
+        controller: widget.controller ?? widget.customInputController,
         initialValue: widget.controller == null ? widget.text : null,
         onFieldSubmitted: widget.onFieldSubmitted,
         focusNode: widget.focusNode,
@@ -161,37 +170,37 @@ class _CustomInputFieldState extends State<CustomInputField> {
             suffixIcon: widget.suffix ??
                 (widget.isPasswordField
                     ? IconButton(
-                  onPressed: () {
-                    if (widget.isPasswordField) {
-                      if (mounted) {
-                        setState(() {
-                          _isHidden = !_isHidden;
-                        });
-                      }
-                    }
-                  },
-                  icon: Visibility(
-                    visible: widget.isPasswordField,
-                    child: Icon(
-                      widget.isPasswordField ? (_isHidden ? Icons.visibility : Icons.visibility_off) : null,
-                    ),
-                  ),
-                )
+                        onPressed: () {
+                          if (widget.isPasswordField) {
+                            if (mounted) {
+                              setState(() {
+                                _isHidden = !_isHidden;
+                              });
+                            }
+                          }
+                        },
+                        icon: Visibility(
+                          visible: widget.isPasswordField,
+                          child: Icon(
+                            widget.isPasswordField ? (_isHidden ? Icons.visibility : Icons.visibility_off) : null,
+                          ),
+                        ),
+                      )
                     : (widget.asyncValidator != null ? _getSuffixIcon() : null)),
             hintStyle: TextStyle(color: hintColor),
             contentPadding: EdgeInsets.only(left: 15, right: 15, top: (widget.maxLines != null) ? 15 : 5, bottom: (widget.maxLines != null) ? 15 : 5),
             border: (widget.showBorder != null && widget.showBorder == false)
                 ? InputBorder.none
                 : OutlineInputBorder(
-              borderRadius: const BorderRadius.all(Radius.circular(10)),
-              borderSide: BorderSide(width: 1, color: hintColor),
-            ),
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    borderSide: BorderSide(width: 1, color: hintColor),
+                  ),
             enabledBorder: (widget.showBorder != null && widget.showBorder == false)
                 ? InputBorder.none
                 : OutlineInputBorder(borderRadius: const BorderRadius.all(Radius.circular(10)), borderSide: BorderSide(width: 1, color: hintColor))
-          // filled: true,
-          // fillColor: Color(0xF0BBBBBB),
-        ),
+            // filled: true,
+            // fillColor: Color(0xF0BBBBBB),
+            ),
       ),
     );
   }
