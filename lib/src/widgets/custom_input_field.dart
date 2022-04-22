@@ -33,7 +33,6 @@ class CustomInputField extends StatefulWidget {
   String? Function(String?)? validator;
   Future<String?> Function(String?)? asyncValidator;
   Widget? suffix;
-  CustomInputController? customInputController;
 
   CustomInputField(
       {this.hint,
@@ -60,8 +59,7 @@ class CustomInputField extends StatefulWidget {
       this.asyncValidator,
       this.label,
       this.key,
-      this.focusNode,
-      this.customInputController});
+      this.focusNode});
 
   final _state = _CustomInputFieldState();
 
@@ -87,9 +85,6 @@ class _CustomInputFieldState extends State<CustomInputField> {
     errorMessage = null;
     if (widget.validator != null && widget.asyncValidator != null) {
       throw "validator and asyncValidator are not allowed at same time";
-    }
-    if (widget.controller != null && widget.customInputController != null) {
-      throw "You cannot use \"controller\" and \"customInputController\" both at once. Use only \"customInputController\" instead if you need both advance and normal features.";
     }
 
     super.initState();
@@ -131,7 +126,7 @@ class _CustomInputFieldState extends State<CustomInputField> {
         minLines: widget.minLines,
         readOnly: widget.readOnly ?? false,
         keyboardType: widget.keyboardType,
-        controller: widget.controller ?? widget.customInputController,
+        controller: widget.controller,
         initialValue: widget.controller == null ? widget.text : null,
         onFieldSubmitted: widget.onFieldSubmitted,
         focusNode: widget.focusNode,

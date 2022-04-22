@@ -10,4 +10,5 @@
 * Fixed Async Validator in TextField (CustomInputField)
 ## 0.0.16
 * Added CustomInputController in CustomInputField
-    -Now you can use custom mask/pattern for CustomInputField using "mask" in CustomInputController (e.g. 00000-0000000-0)
+  - Now you can use custom mask/pattern for CustomInputField using "mask" in CustomInputController (e.g. 00000-0000000-0)
+  - Note: You can use a one controller at once (either TextEditingController or CustomInputController)
