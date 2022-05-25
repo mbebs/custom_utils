@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:custom_utils/src/helpers/custom_input_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
@@ -10,35 +9,36 @@ import '../helpers/constants.dart';
 class CustomInputField extends StatefulWidget {
   final String? hint;
   final String? label;
-  final bool isPasswordField;
+  final bool? isPasswordField;
+  final TextStyle? textStyle;
   final Function(String? value)? onChange;
-  final TextInputType keyboardType;
-  void Function(String)? onFieldSubmitted;
-  Widget? prefix;
-  int? limit;
-  TextEditingController? controller;
-  VoidCallback? onTap;
-  bool? readOnly;
-  Color? fillColor;
-  int? maxLines;
-  int? minLines;
-  String? text;
-  Color? counterColor;
-  bool? showCounter;
-  bool? showBorder;
-  bool? isDense;
-  Key? key;
-  FocusNode? focusNode;
-  EdgeInsetsGeometry? margin;
-  String? Function(String?)? validator;
-  Future<String?> Function(String?)? asyncValidator;
-  Widget? suffix;
+  final TextInputType? keyboardType;
+  final void Function(String)? onFieldSubmitted;
+  final Widget? prefix;
+  final int? limit;
+  final TextEditingController? controller;
+  final VoidCallback? onTap;
+  final bool? readOnly;
+  final Color? fillColor;
+  final int? maxLines;
+  final int? minLines;
+  final String? text;
+  final Color? counterColor;
+  final bool? showCounter;
+  final bool? showBorder;
+  final bool? isDense;
+  final Key? key;
+  final FocusNode? focusNode;
+  final EdgeInsetsGeometry? margin;
+  final String? Function(String?)? validator;
+  final Future<String?> Function(String?)? asyncValidator;
+  final Widget? suffix;
 
   CustomInputField(
       {this.hint,
-      required this.isPasswordField,
+      this.isPasswordField,
       this.onChange,
-      required this.keyboardType,
+      this.keyboardType,
       this.prefix,
       this.limit,
       this.controller,
@@ -59,7 +59,9 @@ class CustomInputField extends StatefulWidget {
       this.asyncValidator,
       this.label,
       this.key,
-      this.focusNode});
+      this.textStyle,
+      this.focusNode})
+      : super(key: key);
 
   final _state = _CustomInputFieldState();
 
@@ -78,13 +80,19 @@ class CustomInputField extends StatefulWidget {
 class _CustomInputFieldState extends State<CustomInputField> {
   late bool _isHidden;
   String text = "";
+  bool isPasswordField = false;
 
   @override
   void initState() {
-    _isHidden = widget.isPasswordField;
+    isPasswordField = widget.isPasswordField ?? false;
+    _isHidden = isPasswordField;
     errorMessage = null;
     if (widget.validator != null && widget.asyncValidator != null) {
       throw "validator and asyncValidator are not allowed at same time";
+    }
+
+    if (widget.controller != null && widget.text != null) {
+      widget.controller!.text = widget.text!;
     }
 
     super.initState();
@@ -97,12 +105,8 @@ class _CustomInputFieldState extends State<CustomInputField> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.controller != null && widget.text != null) {
-      widget.controller!.text = widget.text!;
-    }
-
     return Container(
-      margin: widget.margin ?? const EdgeInsets.symmetric(vertical: 8.0),
+      margin: widget.margin ?? EdgeInsets.symmetric(vertical: 8.0),
       child: TextFormField(
         maxLength: widget.limit,
         key: widget.key,
@@ -111,8 +115,11 @@ class _CustomInputFieldState extends State<CustomInputField> {
             : (value) {
                 text = value.toString();
                 validateValue(text);
-                widget.onChange!(text);
+                if (widget.onChange != null) {
+                  widget.onChange!(text);
+                }
               },
+        style: widget.textStyle,
         obscureText: _isHidden,
         onTap: widget.onTap,
         validator: widget.validator ??
@@ -131,22 +138,16 @@ class _CustomInputFieldState extends State<CustomInputField> {
         onFieldSubmitted: widget.onFieldSubmitted,
         focusNode: widget.focusNode,
         enabled: widget.keyboardType != TextInputType.none,
-        onSaved: (value) {
-          print("saved");
-        },
-        onEditingComplete: () {
-          print("onEditingComplete");
-        },
         autovalidateMode: AutovalidateMode.onUserInteraction,
         buildCounter: (_, {required currentLength, maxLength, required isFocused}) {
           return Visibility(
             visible: widget.showCounter ?? false,
             child: Padding(
-              padding: const EdgeInsets.only(left: 16.0),
+              padding: EdgeInsets.only(left: 16.0),
               child: Container(
                 alignment: Alignment.centerRight,
                 child: Text(
-                  currentLength.toString() + "/" + maxLength.toString(),
+                  currentLength.toString() + (widget.limit != null ? "/" + maxLength.toString() : ""),
                   style: TextStyle(color: widget.counterColor),
                 ),
               ),
@@ -163,10 +164,10 @@ class _CustomInputFieldState extends State<CustomInputField> {
             filled: true,
             suffixIconConstraints: BoxConstraints(minWidth: 50.sp),
             suffixIcon: widget.suffix ??
-                (widget.isPasswordField
+                (isPasswordField
                     ? IconButton(
                         onPressed: () {
-                          if (widget.isPasswordField) {
+                          if (isPasswordField) {
                             if (mounted) {
                               setState(() {
                                 _isHidden = !_isHidden;
@@ -175,9 +176,9 @@ class _CustomInputFieldState extends State<CustomInputField> {
                           }
                         },
                         icon: Visibility(
-                          visible: widget.isPasswordField,
+                          visible: isPasswordField,
                           child: Icon(
-                            widget.isPasswordField ? (_isHidden ? Icons.visibility : Icons.visibility_off) : null,
+                            isPasswordField ? (_isHidden ? Icons.visibility : Icons.visibility_off) : null,
                           ),
                         ),
                       )
@@ -187,12 +188,12 @@ class _CustomInputFieldState extends State<CustomInputField> {
             border: (widget.showBorder != null && widget.showBorder == false)
                 ? InputBorder.none
                 : OutlineInputBorder(
-                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
                     borderSide: BorderSide(width: 1, color: hintColor),
                   ),
             enabledBorder: (widget.showBorder != null && widget.showBorder == false)
                 ? InputBorder.none
-                : OutlineInputBorder(borderRadius: const BorderRadius.all(Radius.circular(10)), borderSide: BorderSide(width: 1, color: hintColor))
+                : OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(10)), borderSide: BorderSide(width: 1, color: hintColor))
             // filled: true,
             // fillColor: Color(0xF0BBBBBB),
             ),
@@ -202,22 +203,22 @@ class _CustomInputFieldState extends State<CustomInputField> {
 
   Widget _getSuffixIcon() {
     if (isValidating) {
-      return Transform.scale(scale: 0.7, child: const CupertinoActivityIndicator());
+      return Transform.scale(scale: 0.7, child: CupertinoActivityIndicator());
     } else {
       if (!isValid && isDirty) {
-        return const Icon(
+        return Icon(
           Icons.cancel,
           color: Colors.red,
           size: 20,
         );
       } else if (isValid) {
-        return const Icon(
+        return Icon(
           Icons.check_circle,
           color: Colors.green,
           size: 20,
         );
       } else {
-        return const SizedBox(
+        return SizedBox(
           height: 1,
           width: 1,
         );

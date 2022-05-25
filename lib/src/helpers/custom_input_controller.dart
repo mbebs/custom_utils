@@ -1,9 +1,7 @@
-
 import 'package:flutter/material.dart';
 
 class CustomInputController extends TextEditingController {
-  CustomInputController({String? text, required this.mask, Map<String, RegExp>? translator})
-      : super(text: text) {
+  CustomInputController({String? text, required this.mask, Map<String, RegExp>? translator}) : super(text: text) {
     this.translator = translator ?? CustomInputController.getDefaultTranslator();
 
     this.addListener(() {
@@ -31,12 +29,7 @@ class CustomInputController extends TextEditingController {
   String _lastUpdatedText = '';
 
   void updateText(String text) {
-    if(text != null){
-      this.text = this._applyMask(this.mask, text);
-    }
-    else {
-      this.text = '';
-    }
+    this.text = this._applyMask(this.mask, text);
 
     this._lastUpdatedText = this.text;
   }
@@ -52,8 +45,7 @@ class CustomInputController extends TextEditingController {
 
   void moveCursorToEnd() {
     var text = this._lastUpdatedText;
-    this.selection = new TextSelection.fromPosition(
-        new TextPosition(offset: (text ?? '').length));
+    this.selection = new TextSelection.fromPosition(new TextPosition(offset: (text).length));
   }
 
   @override
@@ -65,12 +57,7 @@ class CustomInputController extends TextEditingController {
   }
 
   static Map<String, RegExp> getDefaultTranslator() {
-    return {
-      'A': new RegExp(r'[A-Za-z]'),
-      '0': new RegExp(r'[0-9]'),
-      '@': new RegExp(r'[A-Za-z0-9]'),
-      '*': new RegExp(r'.*')
-    };
+    return {'A': new RegExp(r'[A-Za-z]'), '0': new RegExp(r'[0-9]'), '@': new RegExp(r'[A-Za-z0-9]'), '*': new RegExp(r'.*')};
   }
 
   String _applyMask(String mask, String value) {
@@ -102,7 +89,7 @@ class CustomInputController extends TextEditingController {
       }
 
       // apply translator if match
-      if (this.translator != null){
+      if (this.translator != null) {
         if (this.translator!.containsKey(maskChar)) {
           if (this.translator![maskChar]!.hasMatch(valueChar)) {
             result += valueChar;
@@ -130,11 +117,11 @@ class CustomInputController extends TextEditingController {
 class MoneyMaskedTextController extends TextEditingController {
   MoneyMaskedTextController(
       {double initialValue = 0.0,
-        this.decimalSeparator = ',',
-        this.thousandSeparator = '.',
-        this.rightSymbol = '',
-        this.leftSymbol = '',
-        this.precision = 2}) {
+      this.decimalSeparator = ',',
+      this.thousandSeparator = '.',
+      this.rightSymbol = '',
+      this.leftSymbol = '',
+      this.precision = 2}) {
     _validateConfig();
 
     this.addListener(() {
@@ -160,8 +147,7 @@ class MoneyMaskedTextController extends TextEditingController {
 
     if (value.toStringAsFixed(0).length > 12) {
       valueToUse = _lastValue;
-    }
-    else {
+    } else {
       _lastValue = value;
     }
 
@@ -179,8 +165,7 @@ class MoneyMaskedTextController extends TextEditingController {
       this.text = masked;
 
       var cursorPosition = super.text.length - this.rightSymbol.length;
-      this.selection = new TextSelection.fromPosition(
-          new TextPosition(offset: cursorPosition));
+      this.selection = new TextSelection.fromPosition(new TextPosition(offset: cursorPosition));
     }
   }
 
@@ -211,19 +196,14 @@ class MoneyMaskedTextController extends TextEditingController {
   }
 
   String _applyMask(double value) {
-    List<String> textRepresentation = value.toStringAsFixed(precision)
-        .replaceAll('.', '')
-        .split('')
-        .reversed
-        .toList(growable: true);
+    List<String> textRepresentation = value.toStringAsFixed(precision).replaceAll('.', '').split('').reversed.toList(growable: true);
 
     textRepresentation.insert(precision, decimalSeparator);
 
     for (var i = precision + 4; true; i = i + 4) {
       if (textRepresentation.length > i) {
         textRepresentation.insert(i, thousandSeparator);
-      }
-      else {
+      } else {
         break;
       }
     }

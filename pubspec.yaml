@@ -1,6 +1,6 @@
 name: custom_utils
 description: Some nice utils made by MicroProgramers
-version: 0.0.16
+version: 0.0.21
 #author: Mubashar Hussain
 homepage: https://github.com/MicroProgramer/custom_utils
 
@@ -13,6 +13,7 @@ dependencies:
     sdk: flutter
   intl: ^0.17.0
   sizer: ^2.0.15
+  url_launcher: ^6.1.0
 
 dev_dependencies:
   flutter_test:

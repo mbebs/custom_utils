@@ -1,5 +1,10 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
+import '../interfaces/connection_listener.dart';
 import '../widgets/custom_button.dart';
 
 MaterialColor appPrimaryColor = MaterialColor(
@@ -17,9 +22,9 @@ MaterialColor appPrimaryColor = MaterialColor(
     900: const Color(0xFFA033FF),
   },
 );
-String appName = "";
 Color hintColor = Color(0xFFA0A2A8);
 Color buttonColor = Color(0xFFF13B2D);
+
 
 void showOptionsBottomSheet({
   required BuildContext context,
@@ -40,24 +45,19 @@ void showOptionsBottomSheet({
       ),
       isScrollControlled: true,
       builder: (context) {
-        return Container(
-          padding: EdgeInsets.all(10),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 8.0, horizontal: 10),
-                  child: Align(
-                      alignment: Alignment.centerLeft, child: title),
-                ),
-                Container(
-                  child: MediaQuery.removePadding(
-                    removeTop: true,
-                    removeBottom: true,
-                    context: context,
+        return SafeArea(
+          child: Container(
+            padding: EdgeInsets.all(10),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10),
+                    child: Align(alignment: Alignment.centerLeft, child: title),
+                  ),
+                  Container(
                     child: ListView(
                       shrinkWrap: true,
                       physics: ScrollPhysics(),
@@ -74,20 +74,20 @@ void showOptionsBottomSheet({
                       }).toList(),
                     ),
                   ),
-                ),
-                Visibility(
-                  visible: showSkipButton ?? false,
-                  child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 10),
-                    child: CustomButton(
-                        text: skipButtonText ?? "Cancel",
-                        onPressed: onSkipPressed ??
-                                () {
-                              Navigator.of(context).pop();
-                            }),
+                  Visibility(
+                    visible: showSkipButton ?? false,
+                    child: Container(
+                      margin: EdgeInsets.symmetric(horizontal: 10),
+                      child: CustomButton(
+                          text: skipButtonText ?? "Cancel",
+                          onPressed: onSkipPressed ??
+                                  () {
+                                Navigator.of(context).pop();
+                              }),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         );
@@ -128,3 +128,103 @@ String timestampToDateFormat(int timestamp, String format) {
   return DateFormat(format).format(dateTime);
 }
 
+
+void showIosDialog(
+    {required BuildContext context,
+      required String title,
+      required String message,
+      VoidCallback? onConfirm,
+      VoidCallback? onCancel,
+      String? confirmText,
+      String? cancelText}) {
+  showCupertinoDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (context) {
+        return CupertinoAlertDialog(
+          title: Text(title),
+          content: Text(message),
+          actions: [
+            CupertinoDialogAction(
+              child: Text(cancelText ?? "Cancel"),
+              onPressed: onCancel ??
+                      () {
+                    Navigator.pop(context);
+                  },
+              isDefaultAction: true,
+            ),
+            CupertinoDialogAction(
+              child: Text(
+                confirmText ?? "Ok",
+              ),
+              isDestructiveAction: true,
+              onPressed: onConfirm,
+            ),
+          ],
+        );
+      });
+}
+
+checkForInternetConnection({required ConnectionListener listener}) async {
+  try {
+    final result = await InternetAddress.lookup('github.com');
+    if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+      listener.onResponse(true);
+    }
+  } on SocketException catch (_) {
+    listener.onResponse(false);
+  }
+}
+
+String timeStampToDateTime(int timestamp, String pattern) {
+  return DateFormat(pattern).format(DateTime.fromMillisecondsSinceEpoch(timestamp));
+}
+
+String convertTimeToText(int timestamp, String suffix) {
+  String convTime = "";
+  String prefix = "";
+
+  try {
+    DateTime dateTime2 = DateTime.fromMillisecondsSinceEpoch(timestamp);
+    DateTime dateTime1 = DateTime.fromMillisecondsSinceEpoch(DateTime.now().millisecondsSinceEpoch);
+
+    int second = dateTime1.difference(dateTime2).inSeconds;
+    int minute = dateTime1.difference(dateTime2).inMinutes;
+    int hour = dateTime1.difference(dateTime2).inHours;
+    int day = dateTime1.difference(dateTime2).inDays;
+
+    if (second < 60) {
+      convTime = "${second}s $suffix";
+    } else if (minute < 60) {
+      convTime = "${minute} m $suffix";
+    } else if (hour < 24) {
+      convTime = "${hour} h $suffix";
+    } else if (day >= 7) {
+      if (day > 360) {
+        convTime = "${day ~/ 360} y $suffix";
+      } else if (day > 30) {
+        convTime = "${day ~/ 30} mon $suffix";
+      } else {
+        convTime = "${day ~/ 7} w $suffix";
+      }
+    } else if (day < 7) {
+      convTime = "${day} d $suffix";
+    }
+  } catch (e) {
+    print(e.toString() + "------");
+  }
+
+  return convTime;
+}
+
+void launchUrl(String url) async {
+  url = !url.startsWith("http") ? ("http://" + url) : url;
+  if (await canLaunch(url)) {
+    launch(url,
+      forceSafariVC: true,
+      enableJavaScript: true,
+    );
+  } else {
+    throw 'Could not launch $url';
+  }
+}

@@ -1,41 +1,60 @@
 import 'package:flutter/material.dart';
+import '../../custom_utils.dart';
 
 class CustomProgressWidget extends StatefulWidget {
   bool loading;
   Widget child;
+  String? text;
 
   @override
-  _CustomProgressWidgetState createState() =>
-      _CustomProgressWidgetState();
+  _CustomProgressWidgetState createState() => _CustomProgressWidgetState();
 
   CustomProgressWidget({
     required this.loading,
     required this.child,
+    this.text,
   });
 }
 
 class _CustomProgressWidgetState extends State<CustomProgressWidget> {
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        Container(
-            height: MediaQuery.of(context).size.height,
-            decoration: BoxDecoration(
-              color: Colors.white,
-            ),
-            child: widget.child),
-        widget.loading
-            ? Container(
-                color: Colors.black.withOpacity(0.5),
-                child: Center(
-                  child: CircularProgressIndicator(
+    return Scaffold(
+      body: Stack(
+        children: <Widget>[
+          Container(
+              height: MediaQuery.of(context).size.height,
+              decoration: BoxDecoration(
+                color: Colors.white,
+              ),
+              child: widget.child),
+          widget.loading
+              ? Container(
+            color: Colors.black.withOpacity(0.5),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircularProgressIndicator(
                     color: Colors.white,
                   ),
-                ),
-              )
-            : Container()
-      ],
+                  if (widget.text != null && widget.text!.isNotEmpty)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20.0),
+                      child: Text(
+                        widget.text.toString(),
+                        style: normal_h2Style.copyWith(
+                            color: Colors.white
+                        ),
+                      ),
+                    )
+                ],
+              ),
+            ),
+          )
+              : Container(),
+        ],
+      ),
     );
   }
 }
