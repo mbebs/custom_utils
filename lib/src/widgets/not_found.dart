@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import '../helpers/constants.dart';
 
 class NotFound extends StatelessWidget {
-  String message;
-  String? assetImage;
-  String? networkImageUrl;
-  Color? color;
-  double? imageHeight, imageWidth;
+  final String message;
+  final String? assetImage;
+  final String? networkImageUrl;
+  final Color? color;
+  final double? imageHeight, imageWidth;
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +19,8 @@ class NotFound extends StatelessWidget {
               ? Image.network(networkImageUrl!)
               : Image.asset(
                   assetImage ?? "assets/images/nothing.png",
-                  color: color??appPrimaryColor,
-                  height:
-                      imageHeight ?? MediaQuery.of(context).size.height * 0.1,
+                  color: color ?? appPrimaryColor,
+                  height: imageHeight ?? MediaQuery.of(context).size.height * 0.1,
                   width: imageWidth ?? MediaQuery.of(context).size.height * 0.1,
                 ),
           Padding(

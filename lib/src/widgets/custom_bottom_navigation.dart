@@ -4,25 +4,26 @@ import 'package:sizer/sizer.dart';
 import '../helpers/constants.dart';
 
 class CustomBottomNavigation extends StatefulWidget {
-  bool? showSelectedLabels;
-  bool? showUnselectedLabels;
-  int currentIndex;
-  int primaryIndex;
-  ValueChanged<int> onTap;
-  Future<bool> Function()? onScreenExit;
-  Color? selectedItemColor, unselectedItemColor;
-  double? elevation;
-  Color? fixedColor;
-  Color? backgroundColor;
+  final bool? showSelectedLabels;
+  final bool? showUnselectedLabels;
+  final int currentIndex;
+  final int primaryIndex;
+  final ValueChanged<int> onTap;
+  final Future<bool> Function()? onScreenExit;
+  final Color? selectedItemColor, unselectedItemColor;
+  final double? elevation;
+  final Color? fixedColor;
+  final Color? backgroundColor;
   double? iconSize = 21.0.sp;
-  IconThemeData? selectedIconTheme;
-  IconThemeData? unselectedIconTheme;
+  final IconThemeData? selectedIconTheme;
+  final IconThemeData? unselectedIconTheme;
   double? selectedFontSize = 11.0;
   double? unselectedFontSize = 9.0;
-  TextStyle? selectedLabelStyle;
-  TextStyle? unselectedLabelStyle;
-  List<CustomBottomMenuItem> items;
-  CustomBottomNavigationType? type;
+  final TextStyle? selectedLabelStyle;
+  final TextStyle? unselectedLabelStyle;
+  final List<CustomBottomMenuItem> items;
+  final CustomBottomNavigationType? type;
+  final Key? key;
 
   @override
   _CustomBottomNavigationState createState() => _CustomBottomNavigationState();
@@ -47,7 +48,9 @@ class CustomBottomNavigation extends StatefulWidget {
       this.unselectedLabelStyle,
       required this.items,
       this.type,
-      this.onScreenExit});
+      this.key,
+      this.onScreenExit})
+      : super(key: key);
 }
 
 class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
@@ -77,9 +80,7 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
         showUnselectedLabels: widget.showUnselectedLabels,
         type: widget.type == null
             ? null
-            : (widget.type == CustomBottomNavigationType.fixed
-                ? BottomNavigationBarType.fixed
-                : BottomNavigationBarType.shifting),
+            : (widget.type == CustomBottomNavigationType.fixed ? BottomNavigationBarType.fixed : BottomNavigationBarType.shifting),
         elevation: widget.elevation,
         fixedColor: widget.fixedColor,
         backgroundColor: widget.backgroundColor,
@@ -103,18 +104,14 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
         label: item.label ?? widget.items.indexOf(item).toString(),
         activeIcon: Column(
           children: [
-            ConstrainedBox(
-                constraints: BoxConstraints(maxHeight: 17.sp, maxWidth: 17.sp),
-                child: item.icon),
+            ConstrainedBox(constraints: BoxConstraints(maxHeight: 17.sp, maxWidth: 17.sp), child: item.icon),
             SizedBox(
               height: 2.sp,
             ),
             Image.asset(
               "assets/images/menu_bottom.png",
               height: 11.sp,
-              width: totalWidth /
-                  ((widget.items.length <= 3 ? 1.2.sp : widget.items.length) *
-                      1.5.sp),
+              width: totalWidth / ((widget.items.length <= 3 ? 1.2.sp : widget.items.length) * 1.5.sp),
               color: appPrimaryColor,
             ),
           ],

@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import '../helpers/constants.dart';
 
 class CustomTabBarView extends StatefulWidget {
-  int tabs_length;
-  List<String> tabs_titles_list;
-  TabController tabController;
-  List<Widget> tab_children_layouts;
-  BorderRadiusGeometry? borderRadius;
-  bool? showTopShadow;
-  bool? isScrollable;
-  bool? removePadding;
+  final int tabs_length;
+  final List<String> tabs_titles_list;
+  final TabController tabController;
+  final List<Widget> tab_children_layouts;
+  final BorderRadiusGeometry? borderRadius;
+  final bool? showTopShadow;
+  final bool? isScrollable;
+  final bool? removePadding;
 
   @override
   _CustomTabBarViewState createState() => _CustomTabBarViewState();
@@ -26,8 +26,7 @@ class CustomTabBarView extends StatefulWidget {
       this.removePadding});
 }
 
-class _CustomTabBarViewState extends State<CustomTabBarView>
-    with TickerProviderStateMixin {
+class _CustomTabBarViewState extends State<CustomTabBarView> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -41,10 +40,7 @@ class _CustomTabBarViewState extends State<CustomTabBarView>
             unselectedLabelColor: Colors.grey,
             isScrollable: widget.isScrollable ?? false,
             labelColor: appPrimaryColor,
-            labelStyle: TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 17,
-                fontFamily: "Outfit"),
+            labelStyle: TextStyle(fontWeight: FontWeight.w500, fontSize: 17, fontFamily: "Outfit"),
             indicatorColor: appPrimaryColor,
             physics: BouncingScrollPhysics(),
             tabs: getTabBarTitlesToTabs(widget.tabs_titles_list),
@@ -52,18 +48,12 @@ class _CustomTabBarViewState extends State<CustomTabBarView>
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: widget.borderRadius,
-            boxShadow:
-                (widget.showTopShadow == null || widget.showTopShadow == true)
-                    ? [BoxShadow(blurRadius: 10, color: Color(0x414D5678))]
-                    : null,
+            boxShadow: (widget.showTopShadow == null || widget.showTopShadow == true) ? [BoxShadow(blurRadius: 10, color: Color(0x414D5678))] : null,
           ),
         ),
         Expanded(
           child: Container(
-            padding:
-                (widget.removePadding != null && widget.removePadding == true)
-                    ? EdgeInsets.zero
-                    : EdgeInsets.all(8),
+            padding: (widget.removePadding != null && widget.removePadding == true) ? EdgeInsets.zero : EdgeInsets.all(8),
             child: TabBarView(
               controller: widget.tabController,
               children: widget.tab_children_layouts,

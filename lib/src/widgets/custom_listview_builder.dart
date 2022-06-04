@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class CustomListviewBuilder extends StatefulWidget {
-  IndexedWidgetBuilder itemBuilder;
-  int itemCount;
-  CustomDirection scrollDirection;
-  bool? scrollable;
-  bool? reverse;
+  final IndexedWidgetBuilder itemBuilder;
+  final int itemCount;
+  final CustomDirection scrollDirection;
+  final bool? scrollable;
+  final bool? reverse;
 
   @override
   _CustomListviewBuilderState createState() => _CustomListviewBuilderState();
@@ -24,12 +24,12 @@ class _CustomListviewBuilderState extends State<CustomListviewBuilder> {
         scrollDirection: widget.scrollDirection == CustomDirection.vertical ? Axis.vertical : Axis.horizontal,
         child: widget.scrollDirection == CustomDirection.vertical
             ? Column(
-          children: List.generate(widget.itemCount, (index) => widget.itemBuilder(context, index)).toList(),
-        )
+                children: List.generate(widget.itemCount, (index) => widget.itemBuilder(context, index)).toList(),
+              )
             : Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: List.generate(widget.itemCount, (index) => widget.itemBuilder(context, index)).toList(),
-        ),
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: List.generate(widget.itemCount, (index) => widget.itemBuilder(context, index)).toList(),
+              ),
       ),
     );
   }

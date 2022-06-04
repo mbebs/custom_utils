@@ -6,8 +6,7 @@ class CustomInputFormatter extends TextInputFormatter {
   CustomInputFormatter({required this.spaceAfter});
 
   @override
-  TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue, TextEditingValue newValue) {
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
     var text = newValue.text;
 
     if (newValue.selection.baseOffset == 0) {
@@ -19,14 +18,11 @@ class CustomInputFormatter extends TextInputFormatter {
       buffer.write(text[i]);
       var nonZeroIndex = i + 1;
       if (nonZeroIndex % spaceAfter == 0 && nonZeroIndex != text.length) {
-        buffer.write(
-            ' '); // Replace this with anything you want to put after each 4 numbers
+        buffer.write(' '); // Replace this with anything you want to put after each 4 numbers
       }
     }
 
     var string = buffer.toString();
-    return newValue.copyWith(
-        text: string,
-        selection: new TextSelection.collapsed(offset: string.length));
+    return newValue.copyWith(text: string, selection: new TextSelection.collapsed(offset: string.length));
   }
 }

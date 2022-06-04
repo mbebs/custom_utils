@@ -9,12 +9,10 @@ class CustomAnimatedWidget extends StatefulWidget {
   CustomAnimatedWidget({required this.child, this.delayMilliseconds});
 
   @override
-  _CustomAnimatedWidgetState createState() =>
-      _CustomAnimatedWidgetState();
+  _CustomAnimatedWidgetState createState() => _CustomAnimatedWidgetState();
 }
 
-class _CustomAnimatedWidgetState extends State<CustomAnimatedWidget>
-    with TickerProviderStateMixin {
+class _CustomAnimatedWidgetState extends State<CustomAnimatedWidget> with TickerProviderStateMixin {
   late AnimationController _animController;
   late Animation<Offset> _animOffset;
 
@@ -22,13 +20,9 @@ class _CustomAnimatedWidgetState extends State<CustomAnimatedWidget>
   void initState() {
     super.initState();
 
-    _animController = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 500));
-    final curve = CurvedAnimation(
-        curve: Curves.decelerate, parent: _animController);
-    _animOffset = Tween<Offset>(
-            begin: const Offset(0.0, 0.35), end: Offset.zero)
-        .animate(curve);
+    _animController = AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+    final curve = CurvedAnimation(curve: Curves.decelerate, parent: _animController);
+    _animOffset = Tween<Offset>(begin: const Offset(0.0, 0.35), end: Offset.zero).animate(curve);
 
     if (widget.delayMilliseconds == null) {
       _animController.forward();

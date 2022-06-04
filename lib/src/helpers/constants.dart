@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 import '../interfaces/connection_listener.dart';
 import '../widgets/custom_button.dart';
 
@@ -24,7 +25,6 @@ MaterialColor appPrimaryColor = MaterialColor(
 );
 Color hintColor = Color(0xFFA0A2A8);
 Color buttonColor = Color(0xFFF13B2D);
-
 
 void showOptionsBottomSheet({
   required BuildContext context,
@@ -81,7 +81,7 @@ void showOptionsBottomSheet({
                       child: CustomButton(
                           text: skipButtonText ?? "Cancel",
                           onPressed: onSkipPressed ??
-                                  () {
+                              () {
                                 Navigator.of(context).pop();
                               }),
                     ),
@@ -95,26 +95,23 @@ void showOptionsBottomSheet({
 }
 
 Widget flightShuttleBuilder(
-    BuildContext flightContext,
-    Animation<double> animation,
-    HeroFlightDirection flightDirection,
-    BuildContext fromHeroContext,
-    BuildContext toHeroContext,
-    ) {
+  BuildContext flightContext,
+  Animation<double> animation,
+  HeroFlightDirection flightDirection,
+  BuildContext fromHeroContext,
+  BuildContext toHeroContext,
+) {
   return DefaultTextStyle(
     style: DefaultTextStyle.of(toHeroContext).style,
     child: toHeroContext.widget,
   );
 }
 
-
-Future<DateTime> selectDate(BuildContext context, int startTimestamp,
-    int? selectedTimestamp) async {
+Future<DateTime> selectDate(BuildContext context, int startTimestamp, int? selectedTimestamp) async {
   DateTime selectedDate = DateTime.now();
   final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: DateTime.fromMillisecondsSinceEpoch(
-          selectedTimestamp ?? startTimestamp),
+      initialDate: DateTime.fromMillisecondsSinceEpoch(selectedTimestamp ?? startTimestamp),
       firstDate: DateTime.fromMillisecondsSinceEpoch(startTimestamp),
       lastDate: DateTime(2101));
   if (picked != null && picked != selectedDate) selectedDate = picked;
@@ -122,21 +119,19 @@ Future<DateTime> selectDate(BuildContext context, int startTimestamp,
   return selectedDate;
 }
 
-
 String timestampToDateFormat(int timestamp, String format) {
   DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp);
   return DateFormat(format).format(dateTime);
 }
 
-
 void showIosDialog(
     {required BuildContext context,
-      required String title,
-      required String message,
-      VoidCallback? onConfirm,
-      VoidCallback? onCancel,
-      String? confirmText,
-      String? cancelText}) {
+    required String title,
+    required String message,
+    VoidCallback? onConfirm,
+    VoidCallback? onCancel,
+    String? confirmText,
+    String? cancelText}) {
   showCupertinoDialog(
       context: context,
       barrierDismissible: true,
@@ -148,7 +143,7 @@ void showIosDialog(
             CupertinoDialogAction(
               child: Text(cancelText ?? "Cancel"),
               onPressed: onCancel ??
-                      () {
+                  () {
                     Navigator.pop(context);
                   },
               isDefaultAction: true,
@@ -182,7 +177,6 @@ String timeStampToDateTime(int timestamp, String pattern) {
 
 String convertTimeToText(int timestamp, String suffix) {
   String convTime = "";
-  String prefix = "";
 
   try {
     DateTime dateTime2 = DateTime.fromMillisecondsSinceEpoch(timestamp);
@@ -219,10 +213,11 @@ String convertTimeToText(int timestamp, String suffix) {
 
 void launchUrl(String url) async {
   url = !url.startsWith("http") ? ("http://" + url) : url;
-  if (await canLaunch(url)) {
-    launch(url,
-      forceSafariVC: true,
-      enableJavaScript: true,
+  if (await canLaunchUrl(Uri.parse(url))) {
+    launchUrl(
+      url,
+      // forceSafariVC: true,
+      // enableJavaScript: true,
     );
   } else {
     throw 'Could not launch $url';

@@ -52,7 +52,7 @@ class _FullScreenPageState extends State<FullScreenPage> {
     var brightness = widget.dark ? Brightness.light : Brightness.dark;
     var color = widget.dark ? Colors.black12 : Colors.white70;
 
-    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.top]);
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       systemNavigationBarColor: color,
       statusBarColor: color,
@@ -66,7 +66,7 @@ class _FullScreenPageState extends State<FullScreenPage> {
 
   @override
   void dispose() {
-    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
         // Restore your settings here...
         ));

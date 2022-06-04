@@ -11,12 +11,10 @@ class RestartableCircularProgressIndicator extends StatefulWidget {
   });
 
   @override
-  _RestartableCircularProgressIndicatorState createState() =>
-      _RestartableCircularProgressIndicatorState();
+  _RestartableCircularProgressIndicatorState createState() => _RestartableCircularProgressIndicatorState();
 }
 
-class _RestartableCircularProgressIndicatorState
-    extends State<RestartableCircularProgressIndicator> {
+class _RestartableCircularProgressIndicatorState extends State<RestartableCircularProgressIndicator> {
   ProgressController get controller => widget.controller;
 
   VoidCallback get onTimeout => widget.onTimeout;

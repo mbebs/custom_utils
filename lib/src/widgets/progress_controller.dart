@@ -18,9 +18,7 @@ class ProgressController {
   double get progress => _progress;
   double _progress = 0;
 
-  ProgressController({required this.duration})
-      : assert(duration != null),
-        tickPeriod = _calculateTickPeriod(duration);
+  ProgressController({required this.duration}) : tickPeriod = _calculateTickPeriod(duration);
 
   void start() {
     _timer = Timer(duration, () {
@@ -31,7 +29,7 @@ class ProgressController {
 
     _periodicTimer = Timer.periodic(
       tickPeriod,
-          (Timer timer) {
+      (Timer timer) {
         double progress = _calculateProgress(timer);
         _setProgressAndNotify(progress);
       },

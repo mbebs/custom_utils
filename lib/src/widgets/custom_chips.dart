@@ -3,13 +3,13 @@ import 'package:sizer/sizer.dart';
 
 class CustomChips extends StatefulWidget {
   final List<String> chipNames;
-  bool selectable;
-  bool? scrollable;
-  Color? unselectedTextColor, selectedChipColor, unselectedChipColor;
-  ValueChanged<List<String>>? onDeleted;
-  ValueChanged<int>? onSelected;
-  Widget? deleteIcon;
-  double? fontSize;
+  final bool selectable;
+  final bool? scrollable;
+  final Color? unselectedTextColor, selectedChipColor, unselectedChipColor;
+  final ValueChanged<List<String>>? onDeleted;
+  final ValueChanged<int>? onSelected;
+  final Widget? deleteIcon;
+  final double? fontSize;
 
   @override
   _CustomChipsState createState() => _CustomChipsState();
@@ -33,9 +33,7 @@ class _CustomChipsState extends State<CustomChips> {
 
   @override
   void initState() {
-    labelStyle = TextStyle(
-        color: widget.unselectedTextColor ?? Colors.black,
-        fontSize: widget.fontSize);
+    labelStyle = TextStyle(color: widget.unselectedTextColor ?? Colors.black, fontSize: widget.fontSize);
     super.initState();
   }
 

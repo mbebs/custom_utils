@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+
 import '../../custom_utils.dart';
 
 class CustomProgressWidget extends StatefulWidget {
-  bool loading;
-  Widget child;
-  String? text;
+  final bool loading;
+  final Widget child;
+  final String? text;
 
   @override
   _CustomProgressWidgetState createState() => _CustomProgressWidgetState();
@@ -30,28 +31,26 @@ class _CustomProgressWidgetState extends State<CustomProgressWidget> {
               child: widget.child),
           widget.loading
               ? Container(
-            color: Colors.black.withOpacity(0.5),
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CircularProgressIndicator(
-                    color: Colors.white,
-                  ),
-                  if (widget.text != null && widget.text!.isNotEmpty)
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20.0),
-                      child: Text(
-                        widget.text.toString(),
-                        style: normal_h2Style.copyWith(
-                            color: Colors.white
+                  color: Colors.black.withOpacity(0.5),
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CircularProgressIndicator(
+                          color: Colors.white,
                         ),
-                      ),
-                    )
-                ],
-              ),
-            ),
-          )
+                        if (widget.text != null && widget.text!.isNotEmpty)
+                          Padding(
+                            padding: const EdgeInsets.only(top: 20.0),
+                            child: Text(
+                              widget.text.toString(),
+                              style: normal_h2Style.copyWith(color: Colors.white),
+                            ),
+                          )
+                      ],
+                    ),
+                  ),
+                )
               : Container(),
         ],
       ),

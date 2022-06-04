@@ -27,13 +27,11 @@ class ExpandableTextState extends State<ExpandableText> {
 
   @override
   Widget build(BuildContext context) {
-    final DefaultTextStyle defaultTextStyle = DefaultTextStyle.of(context);
+    // final DefaultTextStyle defaultTextStyle = DefaultTextStyle.of(context);
     final colorClickableTextStyle = widget.read_more_textStyle;
     final widgetTextStyle = widget.widgetTextStyle;
     TextSpan link = TextSpan(
-        text: _readMore ? "... read more" : " read less",
-        style: colorClickableTextStyle,
-        recognizer: TapGestureRecognizer()..onTap = _onTapLink);
+        text: _readMore ? "... read more" : " read less", style: colorClickableTextStyle, recognizer: TapGestureRecognizer()..onTap = _onTapLink);
     Widget result = LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         assert(constraints.hasBoundedWidth);

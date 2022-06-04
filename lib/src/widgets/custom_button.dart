@@ -1,33 +1,33 @@
-
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 
 import '../helpers/constants.dart';
 import '../helpers/styles.dart';
+
 class CustomButton extends StatefulWidget {
-  Color? color;
-  String text;
-  double? width;
-  double? height;
-  EdgeInsetsGeometry? margin;
-  EdgeInsetsGeometry? padding;
-  VoidCallback onPressed;
-  VoidCallback? onLongPressed;
-  TextStyle? textStyle;
-  TextAlign? textAlign;
-  OutlinedBorder? shape;
+  final Color? color;
+  final String text;
+  final double? width;
+  final double? height;
+  final EdgeInsetsGeometry? margin;
+  final EdgeInsetsGeometry? padding;
+  final VoidCallback onPressed;
+  final VoidCallback? onLongPressed;
+  final TextStyle? textStyle;
+  final TextAlign? textAlign;
+  final OutlinedBorder? shape;
 
   CustomButton(
       {this.color,
-        required this.text,
-        required this.onPressed,
-        this.width,
-        this.margin,
-        this.height,
-        this.textStyle,
-        this.shape,
-        this.padding,
-        this.textAlign, this.onLongPressed});
+      required this.text,
+      required this.onPressed,
+      this.width,
+      this.margin,
+      this.height,
+      this.textStyle,
+      this.shape,
+      this.padding,
+      this.textAlign,
+      this.onLongPressed});
 
   @override
   _CustomButtonState createState() => _CustomButtonState();
@@ -39,8 +39,7 @@ class _CustomButtonState extends State<CustomButton> {
     return GestureDetector(
       onTap: widget.onPressed,
       child: Container(
-        margin: widget.margin ??
-            const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+        margin: widget.margin ?? const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
         height: widget.height,
         width: widget.width,
         child: ElevatedButton(
@@ -56,8 +55,7 @@ class _CustomButtonState extends State<CustomButton> {
           child: Text(
             widget.text,
             textAlign: widget.textAlign ?? TextAlign.center,
-            style: widget.textStyle ??
-                normal_h3Style.copyWith(color: Colors.white),
+            style: widget.textStyle ?? normal_h3Style.copyWith(color: Colors.white),
           ),
         ),
       ),

@@ -1,11 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomOutlinedButton extends StatefulWidget {
-  Color color;
-  Widget child;
-  VoidCallback onPressed;
-  double width;
+  final Color color;
+  final Widget child;
+  final VoidCallback onPressed;
+  final double width;
 
   @override
   _CustomOutlinedButtonState createState() => _CustomOutlinedButtonState();
