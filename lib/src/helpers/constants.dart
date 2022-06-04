@@ -190,19 +190,19 @@ String convertTimeToText(int timestamp, String suffix) {
     if (second < 60) {
       convTime = "${second}s $suffix";
     } else if (minute < 60) {
-      convTime = "${minute} m $suffix";
+      convTime = "${minute}min $suffix";
     } else if (hour < 24) {
-      convTime = "${hour} h $suffix";
+      convTime = "${hour}hr $suffix";
     } else if (day >= 7) {
       if (day > 360) {
-        convTime = "${day ~/ 360} y $suffix";
+        convTime = "${day ~/ 360}yr $suffix";
       } else if (day > 30) {
-        convTime = "${day ~/ 30} mon $suffix";
+        convTime = "${day ~/ 30}mon $suffix";
       } else {
-        convTime = "${day ~/ 7} w $suffix";
+        convTime = "${day ~/ 7}w $suffix";
       }
     } else if (day < 7) {
-      convTime = "${day} d $suffix";
+      convTime = "${day}d $suffix";
     }
   } catch (e) {
     print(e.toString() + "------");
