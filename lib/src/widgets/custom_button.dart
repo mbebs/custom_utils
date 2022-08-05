@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../helpers/constants.dart';
@@ -15,6 +16,11 @@ class CustomButton extends StatefulWidget {
   final TextStyle? textStyle;
   final TextAlign? textAlign;
   final OutlinedBorder? shape;
+  final bool? enabled;
+  final bool? loading;
+  final double? elevation;
+  final Color? shadowColor;
+  final Duration? animationDuration;
 
   CustomButton(
       {this.color,
@@ -27,7 +33,12 @@ class CustomButton extends StatefulWidget {
       this.shape,
       this.padding,
       this.textAlign,
-      this.onLongPressed});
+      this.onLongPressed,
+      this.enabled,
+      this.loading,
+      this.elevation,
+      this.shadowColor,
+      this.animationDuration});
 
   @override
   _CustomButtonState createState() => _CustomButtonState();
@@ -43,20 +54,26 @@ class _CustomButtonState extends State<CustomButton> {
         height: widget.height,
         width: widget.width,
         child: ElevatedButton(
-          onPressed: widget.onPressed,
           onLongPress: widget.onLongPressed,
+          onPressed: ((widget.enabled != null && !widget.enabled!) || (widget.loading != null && widget.loading!)) ? null : widget.onPressed,
           style: ElevatedButton.styleFrom(
-              padding: widget.padding,
-              primary: widget.color ?? buttonColor,
-              shape: widget.shape ??
-                  const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  )),
-          child: Text(
-            widget.text,
-            textAlign: widget.textAlign ?? TextAlign.center,
-            style: widget.textStyle ?? normal_h3Style.copyWith(color: Colors.white),
+            padding: widget.padding,
+            elevation: widget.elevation,
+            shadowColor: widget.shadowColor,
+            animationDuration: widget.animationDuration,
+            primary: (widget.color ?? buttonColor),
+            shape: widget.shape ??
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                ),
           ),
+          child: (widget.loading != null && widget.loading == true)
+              ? CupertinoActivityIndicator()
+              : Text(
+                  widget.text,
+                  textAlign: widget.textAlign ?? TextAlign.center,
+                  style: widget.textStyle ?? normal_h3Style.copyWith(color: Colors.white),
+                ),
         ),
       ),
     );

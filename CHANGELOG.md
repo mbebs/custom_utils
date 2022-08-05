@@ -14,3 +14,5 @@
   - Note: You can use only one controller at once (either TextEditingController or CustomInputController)
 ## 0.0.21
 * Bugs Fixes
+## 0.0.24
+* Bugs Fixes

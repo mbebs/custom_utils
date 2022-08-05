@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../helpers/constants.dart';
 
 class CustomTabBarView extends StatefulWidget {
-  final int tabs_length;
   final List<String> tabs_titles_list;
   final TabController tabController;
   final List<Widget> tab_children_layouts;
@@ -16,7 +15,7 @@ class CustomTabBarView extends StatefulWidget {
   _CustomTabBarViewState createState() => _CustomTabBarViewState();
 
   CustomTabBarView(
-      {required this.tabs_length,
+      {
       required this.tabs_titles_list,
       required this.tabController,
       required this.tab_children_layouts,
@@ -27,6 +26,19 @@ class CustomTabBarView extends StatefulWidget {
 }
 
 class _CustomTabBarViewState extends State<CustomTabBarView> with TickerProviderStateMixin {
+
+  @override
+  void initState() {
+    int length = widget.tabController.length;
+    if (widget.tabs_titles_list.length != widget.tab_children_layouts.length){
+      throw 'Tab layouts and titles must of same lengths';
+    }
+    else if (widget.tab_children_layouts.length != length || widget.tabs_titles_list.length != length){
+      throw 'TabController length is not equal to length of provided tabs list';
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(

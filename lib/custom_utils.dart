@@ -22,6 +22,7 @@ export 'package:custom_utils/src/helpers/styles.dart';
 export 'package:custom_utils/src/helpers/custom_input_controller.dart';
 export 'package:sizer/sizer.dart';
 export 'package:intl/intl.dart';
+export 'package:custom_utils/src/interfaces/connection_listener.dart';
 
 class CustomUtils {
 }

@@ -23,6 +23,7 @@ class _CustomSwitchListTileState extends State<CustomSwitchListTile> {
       trailing: Transform.scale(
         scale: widget.sizeScale ?? 1,
         child: Switch.adaptive(
+
           value: widget.value,
           activeColor: widget.activeColor,
           onChanged: widget.onChanged,
