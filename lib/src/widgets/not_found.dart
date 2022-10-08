@@ -8,6 +8,7 @@ class NotFound extends StatelessWidget {
   final String? networkImageUrl;
   final Color? color;
   final double? imageHeight, imageWidth;
+  final bool? showImage;
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +16,7 @@ class NotFound extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          if (showImage ?? false)
           networkImageUrl != null
               ? Image.network(networkImageUrl!)
               : Image.asset(
@@ -41,6 +43,6 @@ class NotFound extends StatelessWidget {
     this.networkImageUrl,
     this.color,
     this.imageHeight,
-    this.imageWidth,
+    this.imageWidth, this.showImage,
   });
 }

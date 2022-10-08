@@ -160,8 +160,8 @@ class _CustomInputFieldState extends State<CustomInputField> {
             labelText: widget.label,
             isDense: widget.isDense,
             fillColor: widget.fillColor ?? /*Color(0xFFECECEC)*/
-                Colors.white,
-            filled: true,
+                Colors.transparent,
+            filled: widget.fillColor != null,
             suffixIconConstraints: BoxConstraints(minWidth: 50.sp),
             suffixIcon: widget.suffix ??
                 (isPasswordField
