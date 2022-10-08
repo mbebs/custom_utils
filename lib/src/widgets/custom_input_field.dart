@@ -33,6 +33,9 @@ class CustomInputField extends StatefulWidget {
   final String? Function(String?)? validator;
   final Future<String?> Function(String?)? asyncValidator;
   final Widget? suffix;
+  final InputBorder? border;
+  final InputBorder? enabledBorder;
+  final InputBorderType? borderType;
 
   CustomInputField(
       {this.hint,
@@ -60,6 +63,9 @@ class CustomInputField extends StatefulWidget {
       this.label,
       this.key,
       this.textStyle,
+      this.border,
+      this.enabledBorder,
+      this.borderType,
       this.focusNode})
       : super(key: key);
 
@@ -76,6 +82,8 @@ class CustomInputField extends StatefulWidget {
     }
   }
 }
+
+enum InputBorderType { outline, underline }
 
 class _CustomInputFieldState extends State<CustomInputField> {
   late bool _isHidden;
@@ -185,15 +193,30 @@ class _CustomInputFieldState extends State<CustomInputField> {
                     : (widget.asyncValidator != null ? _getSuffixIcon() : null)),
             hintStyle: TextStyle(color: hintColor),
             contentPadding: EdgeInsets.only(left: 15, right: 15, top: (widget.maxLines != null) ? 15 : 5, bottom: (widget.maxLines != null) ? 15 : 5),
-            border: (widget.showBorder != null && widget.showBorder == false)
-                ? InputBorder.none
-                : OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    borderSide: BorderSide(width: 1, color: hintColor),
-                  ),
-            enabledBorder: (widget.showBorder != null && widget.showBorder == false)
-                ? InputBorder.none
-                : OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(10)), borderSide: BorderSide(width: 1, color: hintColor))
+            border: widget.border ??
+                ((widget.showBorder != null && widget.showBorder == false)
+                    ? InputBorder.none
+                    : widget.borderType != null
+                        ? (widget.borderType == InputBorderType.outline
+                            ? OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(10)),
+                                borderSide: BorderSide(width: 1, color: hintColor),
+                              )
+                            : UnderlineInputBorder(borderSide: BorderSide(color: hintColor, width: 1)))
+                        : null),
+            enabledBorder: widget.enabledBorder ??
+                ((widget.showBorder != null && widget.showBorder == false)
+                    ? InputBorder.none
+                    : widget.borderType != null
+                        ? (widget.borderType == InputBorderType.outline
+                            ? OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(10)),
+                                borderSide: BorderSide(width: 1, color: hintColor),
+                              )
+                            : UnderlineInputBorder(
+                                borderSide: BorderSide(width: 1, color: hintColor),
+                              ))
+                        : null)
             // filled: true,
             // fillColor: Color(0xF0BBBBBB),
             ),
