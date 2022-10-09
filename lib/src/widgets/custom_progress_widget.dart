@@ -25,9 +25,9 @@ class _CustomProgressWidgetState extends State<CustomProgressWidget> {
         children: <Widget>[
           Container(
               height: MediaQuery.of(context).size.height,
-              decoration: BoxDecoration(
-                color: Colors.white,
-              ),
+              // decoration: BoxDecoration(
+              //   color: Colors.white,
+              // ),
               child: widget.child),
           widget.loading
               ? Container(
