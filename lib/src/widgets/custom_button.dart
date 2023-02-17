@@ -11,12 +11,11 @@ class CustomButton extends StatefulWidget {
   final double? height;
   final EdgeInsetsGeometry? margin;
   final EdgeInsetsGeometry? padding;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final VoidCallback? onLongPressed;
   final TextStyle? textStyle;
   final TextAlign? textAlign;
   final OutlinedBorder? shape;
-  final bool? enabled;
   final bool? loading;
   final double? elevation;
   final Color? shadowColor;
@@ -34,7 +33,6 @@ class CustomButton extends StatefulWidget {
       this.padding,
       this.textAlign,
       this.onLongPressed,
-      this.enabled,
       this.loading,
       this.elevation,
       this.shadowColor,
@@ -55,7 +53,7 @@ class _CustomButtonState extends State<CustomButton> {
         width: widget.width,
         child: ElevatedButton(
           onLongPress: widget.onLongPressed,
-          onPressed: ((widget.enabled != null && !widget.enabled!) || (widget.loading != null && widget.loading!)) ? null : widget.onPressed,
+          onPressed: ((widget.loading != null && widget.loading!)) ? null : widget.onPressed,
           style: ElevatedButton.styleFrom(
             padding: widget.padding,
             elevation: widget.elevation,

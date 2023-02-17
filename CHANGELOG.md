@@ -16,3 +16,5 @@
 * Bugs Fixes
 ## 0.0.24
 * Bugs Fixes
+## 0.0.32
+* Added ChipsChoice

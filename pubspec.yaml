@@ -1,6 +1,6 @@
 name: custom_utils
 description: Some nice utils made by MicroProgramers including all basic packages to make code fast
-version: 0.0.31
+version: 0.0.32
 #author: Mubashar Hussain
 homepage: https://github.com/MicroProgramer/custom_utils
 
@@ -9,11 +9,12 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
+  flexi_chip: ^1.0.8
   flutter:
     sdk: flutter
-  intl: ^0.17.0
+  intl: ^0.18.0
   sizer: ^2.0.15
-  url_launcher: ^6.1.2
+  url_launcher: ^6.1.9
 
 dev_dependencies:
   flutter_test:

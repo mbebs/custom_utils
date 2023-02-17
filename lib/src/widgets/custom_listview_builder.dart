@@ -6,11 +6,18 @@ class CustomListviewBuilder extends StatefulWidget {
   final CustomDirection scrollDirection;
   final bool? scrollable;
   final bool? reverse;
+  WidgetType? type = WidgetType.listview;
 
   @override
   _CustomListviewBuilderState createState() => _CustomListviewBuilderState();
 
-  CustomListviewBuilder({required this.itemBuilder, required this.itemCount, required this.scrollDirection, this.scrollable, this.reverse});
+  CustomListviewBuilder(
+      {required this.itemBuilder,
+      required this.itemCount,
+      required this.scrollDirection,
+      this.scrollable,
+      this.reverse,
+      this.type = WidgetType.listview});
 }
 
 class _CustomListviewBuilderState extends State<CustomListviewBuilder> {
@@ -36,3 +43,5 @@ class _CustomListviewBuilderState extends State<CustomListviewBuilder> {
 }
 
 enum CustomDirection { vertical, horizontal }
+
+enum WidgetType { listview, gridview }
