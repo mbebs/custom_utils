@@ -39,8 +39,8 @@ void showOptionsBottomSheet({
       context: context,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(30.0),
-          topRight: Radius.circular(30.0),
+          topLeft: Radius.circular(0.0),
+          topRight: Radius.circular(0.0),
         ),
       ),
       isScrollControlled: true,
@@ -57,6 +57,7 @@ void showOptionsBottomSheet({
                     padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10),
                     child: Align(alignment: Alignment.centerLeft, child: title),
                   ),
+                  Divider(color: Colors.grey,thickness: 0.3,),
                   Container(
                     child: ListView(
                       shrinkWrap: true,
