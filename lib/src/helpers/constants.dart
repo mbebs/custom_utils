@@ -213,7 +213,7 @@ String convertTimeToText(int timestamp, String suffix) {
 }
 
 void launchUrl(String url) async {
-  url = !url.startsWith("http") ? ("http://" + url) : url;
+  url = !url.startsWith("https") ? ("https://" + url) : url;
   if (await canLaunchUrl(Uri.parse(url))) {
     launchUrl(
       url,
