@@ -212,15 +212,4 @@ String convertTimeToText(int timestamp, String suffix) {
   return convTime;
 }
 
-void launchUrl(String url) async {
-  url = !url.startsWith("https") ? ("https://" + url) : url;
-  if (await canLaunchUrl(Uri.parse(url))) {
-    launchUrl(
-      url,
-      // forceSafariVC: true,
-      // enableJavaScript: true,
-    );
-  } else {
-    throw 'Could not launch $url';
-  }
-}
+
