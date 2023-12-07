@@ -54,10 +54,14 @@ void showOptionsBottomSheet({
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 8.0, horizontal: 10),
                     child: Align(alignment: Alignment.centerLeft, child: title),
                   ),
-                  Divider(color: Colors.grey,thickness: 0.3,),
+                  Divider(
+                    color: Colors.grey,
+                    thickness: 0.3,
+                  ),
                   Container(
                     child: ListView(
                       shrinkWrap: true,
@@ -108,11 +112,13 @@ Widget flightShuttleBuilder(
   );
 }
 
-Future<DateTime> selectDate(BuildContext context, int startTimestamp, int? selectedTimestamp) async {
+Future<DateTime> selectDate(
+    BuildContext context, int startTimestamp, int? selectedTimestamp) async {
   DateTime selectedDate = DateTime.now();
   final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: DateTime.fromMillisecondsSinceEpoch(selectedTimestamp ?? startTimestamp),
+      initialDate: DateTime.fromMillisecondsSinceEpoch(
+          selectedTimestamp ?? startTimestamp),
       firstDate: DateTime.fromMillisecondsSinceEpoch(startTimestamp),
       lastDate: DateTime(2101));
   if (picked != null && picked != selectedDate) selectedDate = picked;
@@ -173,7 +179,8 @@ checkForInternetConnection({required ConnectionListener listener}) async {
 }
 
 String timeStampToDateTime(int timestamp, String pattern) {
-  return DateFormat(pattern).format(DateTime.fromMillisecondsSinceEpoch(timestamp));
+  return DateFormat(pattern)
+      .format(DateTime.fromMillisecondsSinceEpoch(timestamp));
 }
 
 String convertTimeToText(int timestamp, String suffix) {
@@ -181,7 +188,8 @@ String convertTimeToText(int timestamp, String suffix) {
 
   try {
     DateTime dateTime2 = DateTime.fromMillisecondsSinceEpoch(timestamp);
-    DateTime dateTime1 = DateTime.fromMillisecondsSinceEpoch(DateTime.now().millisecondsSinceEpoch);
+    DateTime dateTime1 = DateTime.fromMillisecondsSinceEpoch(
+        DateTime.now().millisecondsSinceEpoch);
 
     int second = dateTime1.difference(dateTime2).inSeconds;
     int minute = dateTime1.difference(dateTime2).inMinutes;
@@ -210,17 +218,4 @@ String convertTimeToText(int timestamp, String suffix) {
   }
 
   return convTime;
-}
-
-void launchUrl(String url) async {
-  url = !url.startsWith("https") ? ("https://" + url) : url;
-  if (await canLaunchUrl(Uri.parse(url))) {
-    launchUrl(
-      url,
-      // forceSafariVC: true,
-      // enableJavaScript: true,
-    );
-  } else {
-    throw 'Could not launch $url';
-  }
 }
