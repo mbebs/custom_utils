@@ -59,7 +59,7 @@ class _CustomButtonState extends State<CustomButton> {
             elevation: widget.elevation,
             shadowColor: widget.shadowColor,
             animationDuration: widget.animationDuration,
-            primary: (widget.color ?? buttonColor),
+            //primary: (widget.color ?? buttonColor),
             shape: widget.shape ??
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
