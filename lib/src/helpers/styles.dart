@@ -13,7 +13,7 @@ Color ratingColor = Color(0xFFFBB957);
 
 ButtonStyle disabledButtonStyle = ElevatedButton.styleFrom(
   //primary: Colors.grey,
-  onPrimary: Colors.white,
+  //onPrimary: Colors.white,
   shadowColor: Colors.grey,
   padding: EdgeInsets.all(10.sp),
   elevation: 3.sp,
