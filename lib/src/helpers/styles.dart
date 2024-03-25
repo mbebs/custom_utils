@@ -12,7 +12,7 @@ Color ratingColor = Color(0xFFFBB957);
 // Color appSecondaryColorOpacity = Color(0xFF7154AAFF);
 
 ButtonStyle disabledButtonStyle = ElevatedButton.styleFrom(
-  primary: Colors.grey,
+  //primary: Colors.grey,
   onPrimary: Colors.white,
   shadowColor: Colors.grey,
   padding: EdgeInsets.all(10.sp),
